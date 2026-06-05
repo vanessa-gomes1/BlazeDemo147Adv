@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:bdd": "cucumber-js features/**/*.feature --require steps/**/*.steps.js --require support/**/*.js --format json:reports/cucumber-report.json",
+    "report": "node generate-report.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -11,6 +15,10 @@
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1",
+    "cucumber-html-reporter": "^7.2.0",
     "playwright-bdd": "^9.0.0"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^13.0.0"
   }
 }

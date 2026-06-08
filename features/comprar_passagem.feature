@@ -26,7 +26,7 @@ Esquema do Cenario: Compra com Sucesso DDT
          E se a url contem "reserve"
          Quando seleciono o voo "<voo>" da companhia "<companhia>"
          Entao verifico se a url contem "purchase"
-         Quando preencho o nome como "nome"
+         Quando preencho o nome como "<nome>"
          E seleciono a bandeira  do cartao como "<bandeira>"
          E marco a opcao "Remeber me"
          E clico no botao "Purchase Flight"

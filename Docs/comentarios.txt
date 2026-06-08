@@ -36,7 +36,10 @@ Objetivo é facilitar a comunicação entre os membros do time, áreas e cliente
 
 - Cucumber/Behave/SpecFlow são exemplos de plugins que fazerm a integração entre arquivos .features com arquivos spec.js
 
-
+- Page Objects / Page Factory: separar o mapeamento dos elementos da interface gráfica (páginas, telas) do código da automação
+---> Pages com mapeamento de elementos
+---> Steps com os scripts de automação
+---> Features com os cenários de teste
 
 Em um Projeto Simples cada teste é um arquivo é um arquivo .spec.js diferente
 Em um projeto com Gherkin, cada teste é composto por um arquivo .feature + um arquivo steps.js

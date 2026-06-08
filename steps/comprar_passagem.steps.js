@@ -3,6 +3,8 @@ import { Given, When, Then, And } from '@cucumber/cucumber'
 
 
 Given('que estou no site BlazeDemo', function () {
+abrir_site
+
 
 });
 

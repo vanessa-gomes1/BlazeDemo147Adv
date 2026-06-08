@@ -1,26 +1,40 @@
 import { Given, When, Then, And } from '@cucumber/cucumber'
-
-
+import HomePage from '../pages/home.page'
+import ReservePage from '../pages/reserve.page'
+import PurchasePage from '../pages/purchase.page'
+import ConfirmationPage from '../pages/confirmation.page'
 
 Given('que estou no site BlazeDemo', function () {
-abrir_site
-
-
-});
-
-When('seleciono a origem como {string}', function (string) {
+    page.goto(HomePage.url)                    // abre o browser neste endereço
+    HomePage.verificar_mensagem_boas_vindas() // confirma se a mensagem de boas vindas está presente
 
 });
 
-And('seleciono o destino como {string}', function (string) {
+When('seleciono a origem como {string}', function (origem){
+    HomePage.selecionar_origem(origem) // seleciona a origem
 
 });
 
-When('clico no botao {string}', function (string) {
+And('seleciono o destino como {string}', function (destino) {
+    HomePage.selecionar_destino(destino) // seleciona o destino
+});
+
+// Versão que clica no botão a partir do texto escrito no botão
+And('clico no botao {string}', function (texto_botao) {
+    HomePage.clicar_find_flights(texto_botao)  // clica no botão Find Flights
+});
+
+// Exemplo conforme o cenário simples (sem o texto"Find Flights")
+// Se for sempre clicar no botão olhando apenas o seletor
+And('clico no botao', function (texto_botao) {
+    // Não precisaria ter o recebido o parametro, seria só dar instrução de clicar
+    HomePage.clicar_find_flights()  // clica no botão Find Flights
 
 });
 
-Then('verifico o texto {string}', function (string) {
+// Cenário simples
+Then('verifico o texto {string}', function (mensagem_origem_destino) {
+    ReservePage.verificar_titulo(mensagem_origem_destino) // verifica se o titulo da pagina Reserve tem a mensagem de origem e destino
 
 });
 

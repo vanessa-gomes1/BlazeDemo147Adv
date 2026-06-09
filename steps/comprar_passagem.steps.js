@@ -32,44 +32,49 @@ And('clico no botao', function (texto_botao) {
 
 });
 
-// Cenário simples
+// Cenário simples - verifica a mensagem de cidades de origem e destino
 Then('verifico o texto {string}', function (mensagem_origem_destino) {
     ReservePage.verificar_titulo(mensagem_origem_destino) // verifica se o titulo da pagina Reserve tem a mensagem de origem e destino
 
 });
 
-Then('se a url contem {string}', function (string) {
+Then('verifico se a url contem {string}', function (pagina) {
+    expect(page).toHaveURL(`/${pagina}\.php/`) // verifica se a url contem a palavra "pagina" (ex: reserve, purchase, confirmation)
+});
+
+When('seleciono o voo {string} da companhia {string}', function (voo, companhia) {
+    ReservePage.selecionar_voo(voo, companhia) // seleciona o voo e a companhia
+});
+
+When('preencho o nome como {string}', function (nome) {
+    PurchasePage.preencher_nome(nome) // preenche o campo nome
 
 });
 
-When('seleciono o voo {string} da companhia {string}', function (string, string2) {
-
-});
-
-Then('verifico se a url contem {string}', function (string) {
-
-});
-
-When('preencho o nome como {string}', function (string) {
-
-});
-
-When('seleciono a bandeira  do cartao como {string}', function (string) {
-
+When('seleciono a bandeira  do cartao como {string}', function (bandeira) {
+    PurchasePage.selecionar_bandeira(bandeira) // seleciona a bandeira do cartão
 });
 
 When('marco a opcao {string}', function (string) {
+    // Não estmos usando o parametro que é recebido neste bloco, pois a opção de lembrar os dados do cartão é a única opção de checkbox que tem na página, então não tem necessidade de usar o parametro para identificar qual checkbox marcar
+    PurchasePage.marcar_lembrete() // marca a opção de lembrar os dados do cartão
 
 });
+
+When('clico no botao {string}', function (string) {
+    // Não estmos usando o parametro que é recebido neste bloco, pois o botão de comprar passagem é o único botão presente na página, então não tem necessidade de usar o parametro para identificar qual botão clicar
+    PurchasePage.comprar_passagem()
+})
 
 Then('se exibe a mensagem de agradecimento {string}', function (string) {
-
+    expect(page.locator(ConfirmationPage.mensagem)).toHaveText('Thank you for your purchase today!') // verifica se a mensagem de agradecimento está presente na página de confirmação
 });
 
-Then('se contem a informacao {string} como {string}', function (string, string2) {
-
+Then('se contem a informacao {string} como {string}', function (quantia, preco) {
+    const linha_preco = page.locator('tr').filter({ has: page.locator('td', { hasText: quantia }) }) // localiza a linha da tabela que tem a quantia de passagens compradas
+    expect(linha_preco).toContainText(preco) // verifica se a linha da tabela que tem a quantia de passagens compradas tem o preço correto, que é recebido como parametro
 });
-
-Then('verifico o texto "Flights from {string} to {string}:"', function (string, string2) {
-
+// Esquema de cenário - verifica a mensagem contendo as duas cidades que recebe como parametro
+Then('verifico o texto "Flights from {string} to {string}:"', function (origem, destino) {
+    expect(page.locator(ReservePage.titulo)).toHaveText(`Flights from ${origem} to ${destino}:`) // verifica se o titulo da pagina Reserve tem a mensagem de origem e destino
 });

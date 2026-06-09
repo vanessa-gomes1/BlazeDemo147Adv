@@ -4,9 +4,9 @@ Funcionalidade: Compra de Passagem
          Dado que estou no site BlazeDemo
          Quando seleciono a origem como "São Paolo"
          E seleciono o destino como "London"
-         E clico no botao "Find Flights"
+         E clico no botao
          Entao verifico o texto "Flights from São Paolo to London:"
-         E se a url contem "reserve"
+         E verifico se a url contem "reserve"
          Quando seleciono o voo "9696" da companhia "Aer Lingus"
          Entao verifico se a url contem "purchase"
          Quando preencho o nome como "Nicole"
@@ -23,7 +23,7 @@ Esquema do Cenario: Compra com Sucesso DDT
          E seleciono o destino como "<London>"
          E clico no botao "Find Flights"
          Entao verifico o texto "Flights from "<origem>" to "<destino>":"
-         E se a url contem "reserve"
+         E verifico se a url contem "reserve"
          Quando seleciono o voo "<voo>" da companhia "<companhia>"
          Entao verifico se a url contem "purchase"
          Quando preencho o nome como "<nome>"

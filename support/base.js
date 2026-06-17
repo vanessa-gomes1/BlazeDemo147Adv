@@ -1,4 +1,4 @@
-const { setBaseConstructor } = require('@cucumber/cucumber');
+const { setWorldConstructor } = require('@cucumber/cucumber');
 const { chromium, firefox, webkit } = require('playwright');
 const HomePage = require('../pages/home.page');
 const ReservePage = require('../pages/reserve.page');
@@ -27,4 +27,4 @@ class Base {
 
 }
 
-setBaseConstructor(Base)
+setWorldConstructor(Base)

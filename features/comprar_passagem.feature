@@ -10,7 +10,7 @@ Funcionalidade: Compra de Passagem
          Quando seleciono o voo "9696" da companhia "Aer Lingus"
          Entao verifico se a url contem "purchase"
          Quando preencho o nome como "Nicole"
-         E seleciono a bandeira  do cartao como "Amex"
+         E seleciono a bandeira  do cartao como "American Express"
          E marco a opcao "Remeber me"
          E clico no botao "Purchase Flight"
          Entao verifico se a url contem "confirmation"
@@ -19,8 +19,8 @@ Funcionalidade: Compra de Passagem
 
 Esquema do Cenario: Compra com Sucesso DDT
          Dado que estou no site BlazeDemo
-         Quando seleciono a origem como "<São Paolo>"
-         E seleciono o destino como "<London>"
+         Quando seleciono a origem como "<origem>"
+         E seleciono o destino como "<destino>"
          E clico no botao "Find Flights"
          Entao verifico o texto "Flights from "<origem>" to "<destino>":"
          E verifico se a url contem "reserve"
@@ -36,6 +36,6 @@ Esquema do Cenario: Compra com Sucesso DDT
 
          Exemplos:
          | origem    | destino  | voo  | companhia      | nome    | bandeira         | preco   |
-         | São Paolo | London   | 9696 | Aer Lingus     | Nicole  | Visa             | 555 USD |
+         | São Paolo | London   | 9696 | Aer Lingus     | Nicole  | American Express | 555 USD |
          | Portland  | Dublin   |  12  | Virgin America | Paulo   | American Express | 555 USD |
-         | Boston    | New York | 4346 | Lufthansa      | Sabrina | Dinner's Club    | 555 USD |
+         | Boston    | New York | 4346 | Lufthansa      | Sabrina | American Express | 555 USD |

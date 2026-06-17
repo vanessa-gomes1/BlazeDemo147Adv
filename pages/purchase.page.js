@@ -1,11 +1,12 @@
-export default class PurchasePage {
+// export default class PurchasePage {
    
+    class PurchasePage {
     constructor(page){
         this.page = page
         this.url = '/purchase\.php/'
         this.nome = '#inputName'
         this.bandeira = '#cardType'
-        this.remember = 'rememberMe'
+        this.remember = '#rememberMe'
         this.btn_purchase_flight = '.btn-primary'
 
     }
@@ -29,3 +30,4 @@ export default class PurchasePage {
 
 
 }
+module.exports = PurchasePage  // padrão para type = commonjs

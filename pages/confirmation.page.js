@@ -1,5 +1,5 @@
-export default class ConfirmationPage {
-
+// export default class ConfirmationPage {
+class ConfirmationPage {
     constructor(page){
         this.page = page
         this.url = '/confirmation\.php/'
@@ -7,3 +7,5 @@ export default class ConfirmationPage {
         this.preco = 'Amount '
     }
 }
+
+module.exports = ConfirmationPage  // padrão para type = commonjs

@@ -1,9 +1,12 @@
-export default class HomePage {
-    constructor(page){
+// export default class HomePage { // padrão para type = module
+
+class HomePage {                 // padrão para type = commonjs
+    // construtor com o mapeamento de elementos
+constructor(page){
         this.page = page     // o objeto do Plawright interno recebe o objeto do Playwright externo
         this.titulo = 'h1'
-        this.origem = '[name= "fromPort"]'
-        this.destino = '[name= "toPort"]' //xpath
+        this.origem = '[name="fromPort"]'
+        this.destino = '[name="toPort"]' //xpath
         this.btnFindFlights = '.btn-primary'
         this.url = 'https://www.blazedemo.com'
     }
@@ -12,7 +15,7 @@ export default class HomePage {
     async selecionar_origem(cidade_origem) {
         await this.page.locator(this.origem).selectOption(cidade_origem)
     }
-    async slecionar_destino(cidade_destino) {
+    async selecionar_destino(cidade_destino) {
         await this.page.locator(this.destino).selectOption(cidade_destino)
     }
    // Este seria para o exemplo de clicar no botão sem receber o texto do botão como parâmetro
@@ -38,3 +41,5 @@ export default class HomePage {
         }
     }
 }
+
+module.exports = HomePage  // padrão para type = commonjs

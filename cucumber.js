@@ -1,8 +1,20 @@
 module.exports = {
-  default: {
-    timeout: 30000, // Aumenta o timeout para 30 segundos
-    paths: ['features/**/*.feature'],
-    require: ['steps/**/*.steps.js', 'support/**/*.js'],
-    format: ['json:reports/cucumber-report.json']
-  }
-};
+    default: {
+        parallel: 1,
+        format: ['html:reports/cucumber-report.html'],
+        require: [
+            'steps/**/*.steps.js',
+            'support/**/*.js'
+        ],
+        paths: ['features/**/*.feature']
+    },
+    paralelo: {
+        parallel: 4,
+        format: ['html:reports/cucumber-report.html'],
+        require: [
+            'steps/**/*.steps.js',
+            'support/**/*.js'
+        ],
+        paths: ['features/**/*.feature']
+    }
+}

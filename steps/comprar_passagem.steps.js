@@ -9,32 +9,39 @@ const { expect } = require('@playwright/test')
 
 Given('que estou no site BlazeDemo', async function () {
     await this.page.goto(this.homePage.url)                    // abre o browser neste endereço
-    await this.homePage.verificar_mensagem_boas_vindas() // confirma se a mensagem de boas vindas está presente
-
+    if (this.page) {
+        const screenshot = await this.page.screenshot({fullPage: true}) // tira um screenshot da página inicial
+        await this.attach(screenshot, 'image/png') // anexa o screenshot ao relatório do teste
+    }
+    
+    await this.homePage.verificar_mensagem_boas_vindas() // verifica se a mensagem de boas vindas está presente na página inicial
 });
 
 When('seleciono a origem como {string}', async function (origem){
-    await this.homePage.selecionar_origem(origem.trim()) // seleciona a origem
-
+    await this.homePage.selecionar_origem(origem) // seleciona a origem
 });
 
 When('seleciono o destino como {string}', async function (destino) {
-    await this.homePage.selecionar_destino(destino.trim()) // seleciona o destino
+    await this.homePage.selecionar_destino(destino)
+    const screenshot = await this.page.screenshot({fullPage: true}) // seleciona o destino
+    await this.attach(screenshot, 'image/png') // anexa o screenshot ao relatório do teste
 });
 
 // Versão que clica no botão sem texto (Find Flights padrão)
 When('clico no botao', async function () {
-    await this.homePage.clicar_find_flights()  // clica no botão Find Flights
+    await this.homePage.clicar_find_flights(texto_botao)  // clica no botão Find Flights
 });
 
-// Versão que clica no botão "Find Flights" 
+// Versão que clica no botão a partir do texto escrito no botão
 When('clico no botao "Find Flights"', async function () {
     await this.homePage.clicar_find_flights('Find Flights')  // clica no botão Find Flights
 });
 
-// Versão que clica no botão "Purchase Flight"
+// Exemplo conforme o cenário simples (sem o texto "Find Flights")
+// Se for sempre clicar no botão olhando apenas o seletor do botão, não tem necessidade de usar o parâmetro "texto_botao" para identificar qual botão clicar, já que só tem um botão na página inicial. Mas se tiver mais de um botão, aí sim tem necessidade de usar o parâmetro para identificar qual botão clicar.
 When('clico no botao "Purchase Flight"', async function () {
-    await this.purchasePage.comprar_passagem()  // clica no botão Purchase Flight
+    // não precisarei ter recebido o parâmetro, seria só dar instrução de clicar
+    await this.purchasePage.clicar_find_flights()  // clica no botão Purchase Flight
 });
 
 // Cenário simples - verifica a mensagem de cidades de origem e destino
@@ -44,7 +51,7 @@ Then('verifico o texto {string}', async function (mensagem_origem_destino) {
 });
 
 Then('verifico se a url contem {string}', async function (pagina) {
-    await expect(this.page).toHaveURL(new RegExp(`/${pagina}\\.php`)) // verifica se a url contem a palavra "pagina" (ex: reserve, purchase, confirmation)
+    await expect(this.page).toHaveURL(`/${pagina}\.php`) // verifica se a url contem a palavra "pagina" (ex: reserve, purchase, confirmation)
 });
 
 When('seleciono o voo {string} da companhia {string}', async function (voo, companhia) {
@@ -53,6 +60,9 @@ When('seleciono o voo {string} da companhia {string}', async function (voo, comp
 
 When('preencho o nome como {string}', async function (nome) {
     await this.purchasePage.preencher_nome(nome) // preenche o campo nome
+    const sreenshot = await this.page.screenshot({fullPage: true})
+    await this.attach(screenshot, 'image/png')
+    await this.purchasePage.preencher_nome(nome)
 
 });
 
@@ -70,8 +80,9 @@ Then('se exibe a mensagem de agradecimento {string}', async function (string) {
 });
 
 Then('se contem a informacao {string} como {string}', async function (quantia, preco) {
-    const linha_preco = this.page.locator('tr').filter({ has: this.page.locator('td', { hasText: quantia }) }) // localiza a linha da tabela que tem a quantia de passagens compradas
-    await expect(linha_preco).toContainText(preco) // verifica se a linha da tabela que tem a quantia de passagens compradas tem o preço correto, que é recebido como parametro
+    const linha_preco = await this.page.locator('tr').filter({ has: this.page.locator('td', { hasText: quantia }) })
+    await expect(linha_preco).toContainText(preco)
+
 });
 // Esquema de cenário - verifica a mensagem contendo as duas cidades que recebe como parametro
 Then('verifico o texto "Flights from {string} to {string}:"', async function (origem, destino) {

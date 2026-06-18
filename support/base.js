@@ -1,30 +1,31 @@
-const { setWorldConstructor } = require('@cucumber/cucumber');
-const { chromium, firefox, webkit } = require('playwright');
-const HomePage = require('../pages/home.page');
-const ReservePage = require('../pages/reserve.page');
-const PurchasePage = require('../pages/purchase.page');
-const ConfirmationPage = require('../pages/confirmation.page');
+const { setWorldConstructor, World } = require('@cucumber/cucumber')
+const { chromium, firefox, webkit } = require('@playwright/test')
+const HomePage = require('../pages/home.page')
+const ReservePage = require('../pages/reserve.page')
+const PurchasePage = require('../pages/purchase.page')
+const ConfirmationPage = require('../pages/confirmation.page')
 
-class Base {
+class Base extends World {
     async abrir_browser() {
-        const browser =  { chromium, firefox, webkit }
-        const browser_name = process.env.BROWSER || 'chromium'; // Define o navegador a ser usado, com base na variável de ambiente BROWSER ou padrão para 'chromium'
-        this.browser = await browser[browser_name].launch({ headless: process.env.HEADLESS !== 'false' }); // Inicia o navegador selecionado - não vai mostrar o teste acontecendo 
-        this.context = await this.browser.newContext({ baseURL: 'https://blazedemo.com' }); // Cria um novo contexto de navegador
-        this.page = await this.context.newPage(); // Abre uma nova página no navegador
+        // async abrir_browser(browser_desejado) {    
+        const browsers = { chromium, firefox, webkit }
+        const browser_name = process.env.BROWSER || 'chromium' // browser_desejado
 
-        this.homePage = new HomePage(this.page); // Instancia a classe HomePage, passando a página do navegador
-        this.reservePage = new ReservePage(this.page); // Instancia a classe ReservePage, passando a página do navegador
-        this.purchasePage = new PurchasePage(this.page); // Instancia a classe PurchasePage, passando a página do navegador
-        this.confirmationPage = new ConfirmationPage(this.page); // Instancia a classe ConfirmationPage, passando a página do navegador
+        this.browser = await browsers[browser_name].launch({ headless: process.env.HEADLESS !== 'false' })
+        this.context = await this.browser.newContext({ baseURL: 'https://www.blazedemo.com' })
+        this.page = await this.context.newPage()
 
-        }
-        async fechar_browser() {
-            if (this.context) await this.context.close();
-            if (this.browser) await this.browser.close();
-    
-        }
+        this.homePage = new HomePage(this.page)
+        this.reservePage = new ReservePage(this.page)
+        this.purchasePage = new PurchasePage(this.page)
+        this.confirmationPage = new ConfirmationPage(this.page)
 
+    }
+
+    async fechar_browser() {
+        if (this.context) await this.context.close()
+        if (this.browser) await this.browser.close()
+    }
 }
 
 setWorldConstructor(Base)

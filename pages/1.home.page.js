@@ -18,14 +18,13 @@ constructor(page){
     async selecionar_destino(cidade_destino) {
         await this.page.locator(this.destino).selectOption(cidade_destino)
     }
-   // Este seria para o exemplo de clicar no botão sem receber o texto do botão como parâmetro
-    async clicar_find_flights(){
-        await this.page.locator(this.btnFindFlights).click()
-    }
-
-    // Este seria para o exemplo de clicar no botão a partir do texto escrito no botão
+    // Clica no botão Find Flights; aceita parâmetro opcional com o texto do botão
     async clicar_find_flights(texto_botao){
-        await this.page.getByRole('button', { name: texto_botao }).click()
+        if (texto_botao) {
+            await this.page.getByRole('button', { name: texto_botao }).click()
+        } else {
+            await this.page.locator(this.btnFindFlights).click()
+        }
     }
 
     // jeito "rebelde" - verificação dentro do mapeamento

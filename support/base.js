@@ -1,9 +1,9 @@
 const { setWorldConstructor, World } = require('@cucumber/cucumber')
 const { chromium, firefox, webkit } = require('@playwright/test')
-const HomePage = require('../pages/home.page')
-const ReservePage = require('../pages/reserve.page')
-const PurchasePage = require('../pages/purchase.page')
-const ConfirmationPage = require('../pages/confirmation.page')
+const HomePage = require('../pages/1.home.page')
+const ReservePage = require('../pages/2.reserve.page')
+const PurchasePage = require('../pages/3.purchase.page')
+const ConfirmationPage = require('../pages/4.confirmation.page')
 
 class Base extends World {
     async abrir_browser() {
